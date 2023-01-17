@@ -2,8 +2,6 @@
 import { MatrixClient } from 'matrix-bot-sdk';
 import { newClient, multiMessageCommandSetup, onMessage, changeAvatar, changeDisplayname } from 'matrix-bot-starter';
 
-import { handleMermaidCodeblocks } from './mermaid';
-
 async function onEvents(client : MatrixClient) {
     onMessage(client, 
         async (roomId : string, event : any, sender: string, content: any, body: any, requestEventId: string, isEdit: boolean, isHtml: boolean, mentioned: string) => {
