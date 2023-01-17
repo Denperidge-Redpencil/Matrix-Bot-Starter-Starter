@@ -1,6 +1,6 @@
 // index.ts
 import { MatrixClient } from 'matrix-bot-sdk';
-import { newClient, multiMessageCommandSetup, onMessage, changeAvatar, changeDisplayname } from 'matrix-bot-starter';
+import { newClient, awaitMoreInput, onMessage, changeAvatar, changeDisplayname } from 'matrix-bot-starter';
 
 async function onEvents(client : MatrixClient) {
     onMessage(client, 
@@ -10,7 +10,7 @@ async function onEvents(client : MatrixClient) {
             if (mentioned) {
                 let command = mentioned.toLowerCase();
 
-                multiMessageCommandSetup(client, roomId, event, 
+                awaitMoreInput(client, roomId, event, 
                     (command.includes('picture') || command.includes('avatar')), 
                     true, 
                     {
@@ -20,7 +20,7 @@ async function onEvents(client : MatrixClient) {
                     }, 
                     'Setting new avatar! If your next message is an image, I will update my avatar to that.');
                 
-                multiMessageCommandSetup(client, roomId, event,
+                awaitMoreInput(client, roomId, event,
                     (command.includes('name') || command.includes('handle')), 
                     true, 
                     {
@@ -31,9 +31,6 @@ async function onEvents(client : MatrixClient) {
                     'Setting new display name! I\'ll set it to the contents of your next message.');
             }
         }
-
-        handleMermaidCodeblocks(client, roomId, requestEventId, event, body, isEdit);
-
     });
 
 }
